@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import 'dotenv/config';
-const SECRET_KEY = process.env.SERVER_SESSION_SECRET;
 
 import {
   HashRouter as Router,
