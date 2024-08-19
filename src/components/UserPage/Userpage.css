@@ -1,0 +1,51 @@
+.UserPage {
+    text-align: center;
+  }
+  
+  .UserPage-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+  }
+  
+  .UserPage-header {
+    background-color: #03034e;
+    height: 150px;
+    padding: 20px;
+    color: white;
+  }
+  
+  .UserPage-title {
+    font-size: 1.5em;
+  }
+  
+  .UserPage-intro {
+    font-size: large;
+  }
+  
+  .rbc-header {
+    color: white;
+    background-color: #2b9dda;
+  }
+
+  .rbc-allday-cell {
+    display: none;
+  }
+
+  .rbc-time-header-cell .rbc-today {
+    background-color: green;
+  }
+
+  .rbc-time-slot {
+    color: #2b9dda;
+    z-index: 1;
+  }
+
+  .rbc-event,
+  .rbc-background-event {
+    z-index: 2;
+  }
+
+  @keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }

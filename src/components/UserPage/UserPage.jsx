@@ -1,18 +1,59 @@
-import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector} from 'react-redux';
+import React, { Component } from "react";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+import moment from "moment";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
-function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
-  const user = useSelector((store) => store.user);
-  return (
-    <div className="container">
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
-      <LogOutButton className="btn" />
-    </div>
-  );
+import "./Userpage.css";
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
+const localizer = momentLocalizer(moment);
+const DnDCalendar = withDragAndDrop(Calendar);
+
+
+// const AllViews = {
+//   month: true,
+//   week: true,
+//   day: true,
+//   date: CustomDateView,
+// }
+
+class UserPage extends Component {
+  state = {
+    events: [],
+  };
+
+  onEventResize = (data) => {
+    const { start, end } = data;
+
+    this.setState((state) => {
+      state.events[0].start = start;
+      state.events[0].end = end;
+      return { events: [...state.events] };
+    });
+  };
+
+  onEventDrop = (data) => {
+    console.log(data);
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <DnDCalendar
+          defaultDate={moment().toDate()}
+          defaultView="month"
+          // views={AllViews}
+          events={this.state.events}
+          localizer={localizer}
+          onEventDrop={this.onEventDrop}
+          onEventResize={this.onEventResize}
+          resizable
+          style={{ height: "100vh" }}
+        />
+      </div>
+    );
+  }
 }
 
-// this allows us to use <App /> in index.js
 export default UserPage;
