@@ -25,6 +25,7 @@
   .rbc-header {
     color: white;
     background-color: #2b9dda;
+    border-radius: 4px;
   }
 
   .rbc-allday-cell {
@@ -43,8 +44,10 @@
   .rbc-event,
   .rbc-background-event {
     z-index: 2;
+    background-color: #2b9dda;
   }
 
+  
   @keyframes App-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
