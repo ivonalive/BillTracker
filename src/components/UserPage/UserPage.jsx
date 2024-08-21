@@ -44,8 +44,12 @@ function UserPage() {
         return {
           id: bill.id,
           title: `$${bill.bill_amount} - ${bill.bill_name} `,
-          start: bill.bill_due_date,
-          end: bill.bill_due_date,
+          amount: bill.bill_amount,
+          link: bill.bill_link, 
+          cardNickname: bill.card_nickname, 
+          dueDate: new Date(bill.bill_due_date),
+          start: new Date(bill.bill_due_date),
+          end: new Date(bill.bill_due_date),
           allDay: true,
         };
       });
@@ -55,6 +59,36 @@ function UserPage() {
       alert('something went wrong!');
     })
   }, [])
+
+  const deleteBill = (id) => {
+    axios.delete(`/api/bill/${id}`)
+    .then((response) => {
+      console.log('deleting a bill worked:', response);
+      axios.get('/api/bill').then((response) => {
+        let calendarEvents = response.data.map((bill) => {
+          return {
+            id: bill.id,
+            title: `$${bill.bill_amount} - ${bill.bill_name} `,
+            amount: bill.bill_amount,
+            link: bill.bill_link, 
+            cardNickname: bill.card_nickname, 
+            dueDate: new Date(bill.bill_due_date),
+            start: new Date(bill.bill_due_date),
+            end: new Date(bill.bill_due_date),
+            allDay: true,
+          };
+        });
+        setEvents(calendarEvents);
+      }).catch(e => {
+        console.log(e);
+        alert('something went wrong!');
+      })
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
 
   const editBill = (id) => {
     axios.put(`/api/bill/${id}`)
@@ -130,11 +164,18 @@ function UserPage() {
       >
         {selectedEvent && (
           <div className="billInfo">
-            <h2>{selectedEvent.title}</h2>
-            <p>Amount: {selectedEvent.title.split(" - ")[0]}</p>
-            <p>Bill Name: {selectedEvent.title.split(" - ")[1]}</p>
-            {/* <p>Due Date: {newDate(selectedEvent.start).toDateString()}</p> */}
+             <h2>{selectedEvent.title}</h2>
+              <p>Amount: ${selectedEvent.amount}</p>
+              <p>Bill Name: {selectedEvent.title}</p>
+              <p>Due Date: {selectedEvent.dueDate.toDateString()}</p>
+              <p>Card Nickname: {selectedEvent.cardNickname || 'N/A'}</p>
+              {selectedEvent.link && (
+                <p>
+                  Bill Link: <a href={selectedEvent.link} target="_blank" rel="noopener noreferrer">Click Here</a>
+                </p>
+              )}
             <button onClick={closeModal}>Close</button>
+            <button onClick={() => deleteBill(selectedEvent.id)}>Delete</button>
           </div>
         )}
       </Modal>

@@ -58,4 +58,31 @@ router.put('/:id', (req, res) => {
   })
 });
 
+//  DELETE route
+router.delete('/:id', (req, res) => {
+  console.log('req.params', req.params);
+
+  let idToDelete = req.params.id
+
+  console.log('idToDelete', idToDelete);
+
+  console.log('typeof idToDelete', typeof idToDelete);
+
+  // write a SQL query
+  let queryText = `DELETE FROM "bill_information" WHERE id = $1;`;
+
+  // send it to the database
+  pool.query(queryText, [idToDelete])
+      .then(dbResult => {
+          // unpack the results
+          console.log(dbResult);
+          // send the client a response, based on the results.
+          res.sendStatus(200);
+      })
+      .catch(dbError => {
+          console.log(dbError);
+          res.sendStatus(500);
+      })
+});
+
 module.exports = router;
