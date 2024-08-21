@@ -31,32 +31,28 @@ router.post('/', (req, res) => {
 // PUT route
 
 router.put('/:id', (req, res) => {
-  // code here
-    let idUpdate = req.params.id;
+  const { id } = req.params;
+  const { name, amount, link, card, due_date } = req.body;
 
-    let updatedBill = req.body;
-    let name = updatedBill.bill_name;
-    let amount = updatedBill.bill_amount;
-    let link = updatedBill.bill_link;
-    let card = updatedBill.card_nicname;
-    let due_date = updatedBill.bill_due_date;
-    
-  const sqlText = `
-            UPDATE "bill_information" 
-            SET "name" = $1, "amount" = $2, "link" = $3 , "card" = $4, "due_date"= $5
-            WHERE "id" = $5;
-    `;
+  const sqlQuery = `
+    UPDATE "bill_information"
+    SET "bill_name" = $1, "bill_amount" = $2, "bill_link" = $3, "card_nickname" = $4, "bill_due_date" = $5
+    WHERE "id" = $6;
+  `;
 
-  pool.query(queryText, [name, amount, link, card, due_date, idUpdate])
-  .then((result) => {
-      console.log(`Got stuff back from the database`, result);
-      res.sendStatus(201);
-  })
-  .catch((error) => {
-      console.log(`Error making database query ${sqlText}`, error);
-      res.sendStatus(500); 
-  })
+  const queryValues = [name, amount, link, card, due_date, id];
+
+  pool
+    .query(sqlQuery, queryValues)
+    .then((result) => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error('Error executing query', error);
+      res.sendStatus(500);
+    });
 });
+
 
 //  DELETE route
 router.delete('/:id', (req, res) => {

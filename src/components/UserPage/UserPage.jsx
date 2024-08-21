@@ -90,24 +90,60 @@ function UserPage() {
     })
   }
 
-  const editBill = (id) => {
-    axios.put(`/api/bill/${id}`)
-      .then((response) => {
-        let calendarEvents = response.data.map((bill) => {
-          return {
-            id: bill.id,
-            title: `$${bill.bill_amount} - ${bill.bill_name} `,
-            start: bill.bill_due_date,
-            end: bill.bill_due_date,
-            allDay: true,
-          };
-        });
-        setEvents(calendarEvents);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-  }
+  const [isEditing, setIsEditing] = useState(false);
+const [editData, setEditData] = useState({
+  amount: selectedEvent?.amount || '',
+  title: selectedEvent?.title || '',
+  cardNickname: selectedEvent?.cardNickname || '',
+  link: selectedEvent?.link || '',
+});
+
+const handleEditClick = () => {
+  setIsEditing(true);
+};
+
+const handleEditSubmit = (e) => {
+  e.preventDefault();
+
+  axios.put(`/api/bill/${selectedEvent.id}`, {
+    name: editData.title,
+    amount: editData.amount,
+    link: editData.link,
+    card: editData.cardNickname,
+    due_date: editData.dueDate,
+  })
+  .then((response) => {
+    axios.get('/api/bill').then((response) => {
+      const calendarEvents = response.data.map((bill) => ({
+        id: bill.id,
+        title: `${bill.bill_amount} - ${bill.bill_name}`,
+        amount: bill.bill_amount,
+        link: bill.bill_link,
+        cardNickname: bill.card_nickname,
+        dueDate: new Date(bill.bill_due_date),
+        start: new Date(bill.bill_due_date),
+        end: new Date(bill.bill_due_date),
+        allDay: true,
+      }));
+      setEvents(calendarEvents);
+      setIsEditing(false);
+      closeModal();
+    });
+  })
+  .catch((error) => {
+    console.error('Error updating bill:', error);
+  });
+};
+
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setEditData((prevData) => ({
+    ...prevData,
+    [name]: value,
+  }));
+};
+
 
   const openModal = (event) => {
     setSelectedEvent(event);
@@ -156,29 +192,91 @@ function UserPage() {
         style={{ height: "100vh" }}
         onSelectEvent={openModal}
       />
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Bill Details"
-      >
-        {selectedEvent && (
-          <div className="billInfo">
-             <h2>{selectedEvent.title}</h2>
-              <p>Amount: ${selectedEvent.amount}</p>
-              <p>Bill Name: {selectedEvent.title}</p>
-              <p>Due Date: {selectedEvent.dueDate.toDateString()}</p>
-              <p>Card Nickname: {selectedEvent.cardNickname || 'N/A'}</p>
-              {selectedEvent.link && (
-                <p>
-                  Bill Link: <a href={selectedEvent.link} target="_blank" rel="noopener noreferrer">Click Here</a>
-                </p>
-              )}
-            <button onClick={closeModal}>Close</button>
-            <button onClick={() => deleteBill(selectedEvent.id)}>Delete</button>
-          </div>
+      {selectedEvent && (
+  <Modal
+    isOpen={modalIsOpen}
+    onRequestClose={closeModal}
+    style={customStyles}
+    contentLabel="Bill Details"
+  >
+    {isEditing ? (
+      <form className="billInfo" onSubmit={handleEditSubmit}>
+        {/* Form fields */}
+        <div>
+        <label>Bill Name: </label>
+        <input
+          type="text"
+          name="title"
+          value={editData.title}
+          onChange={handleInputChange}
+        />
+        </div>
+
+        <div>
+        <label>Amount: </label>
+        <input
+          type="number"
+          name="amount"
+          value={editData.amount}
+          onChange={handleInputChange}
+        />
+        </div>
+        
+        <div>
+        <label>Payment Link: </label>
+        <input
+          type="text"
+          name="link"
+          value={editData.link}
+          onChange={handleInputChange}
+        />
+        </div>
+
+        <div>
+        <label>Card Nickname: </label>
+        <input
+          type="text"
+          name="cardNickname"
+          value={editData.cardNickname}
+          onChange={handleInputChange}
+        />
+        </div>
+
+        <div>
+        <label>Due Date: </label>
+        <input
+          type="date"
+          name="dueDate"
+          value={editData.dueDate}
+          onChange={handleInputChange}
+        />
+        </div>
+
+        <button type="submit">Save Changes</button>
+        <button type="button" onClick={() => setIsEditing(false)}>
+          Cancel
+        </button>
+      </form>
+    ) : (
+      <div className="billInfo">
+        <h2>{selectedEvent.title}</h2>
+        <p>Amount: ${selectedEvent.amount}</p>
+        <p>Bill Name: {selectedEvent.title}</p>
+        <p>Due Date: {selectedEvent.dueDate.toDateString()}</p>
+        <p>Card Nickname: {selectedEvent.cardNickname || 'N/A'}</p>
+        {selectedEvent.link && (
+          <p>
+            Bill Link: <a href={selectedEvent.link} target="_blank" rel="noopener noreferrer">Click Here</a>
+          </p>
         )}
-      </Modal>
+        <button onClick={closeModal}>Close</button>
+        <button onClick={() => deleteBill(selectedEvent.id)}>Delete</button>
+        <button onClick={handleEditClick}>Edit</button>
+      </div>
+    )}
+  </Modal>
+)}
+
     </div>
   );
 }
