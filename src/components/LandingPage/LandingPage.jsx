@@ -20,7 +20,7 @@ function LandingPage() {
       <div className="grid">
         <div className="grid-col grid-col_8">
           <p>
-          BillTracker allows users to see expenses that occur each month. Some of them may be car insurance, healthcare coverage, dental insurance, streaming services, cellular services, rent, credit card payments etc. Instead of remembering all bills due a month the user can use this application as note taking for bills. 
+          BillTracker allows users to prevent late fee charges. Some of them may be car insurance, healthcare coverage, streaming services, cellular services, rent, credit card payments etc. Instead of remembering all bills due a month the user can use this application as note taking for bills. 
 
           </p>
 

@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import {useState, useEffect} from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
+import axios from "axios";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 
@@ -13,7 +14,15 @@ const DnDCalendar = withDragAndDrop(Calendar);
 
 function UserPage() {
   
-  const [events, setEvents] = React.useState([]);
+  const [events, setEvents] = useState([
+    // {
+    //   id: 1,
+    //   title: 'Long Event',
+    //   start: new Date(2024, 7, 7),
+    //   end: new Date(2024, 7, 7),
+    //   allDay: true,
+    // },
+  ]);
 
   const onEventResize = (data) => {
     const { start, end } = data;
@@ -28,6 +37,23 @@ function UserPage() {
     console.log(data);
   };
 
+  useEffect(() => {
+    axios.get('/api/bill').then((response) => {
+      let calendarEvents = response.data.map((bill) => {
+        return {
+          id: bill.id,
+          title: `$${bill.bill_amount} - ${bill.bill_name} `,
+          start: bill.bill_due_date,
+          end: bill.bill_due_date,
+          allDay: true,
+        };
+      });
+      setEvents(calendarEvents);
+    }).catch(e => {
+      console.log(e);
+      alert('something went wrong!');
+    })
+  }, [])
 
   return (
     <div className="App">
