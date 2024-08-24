@@ -13,32 +13,32 @@ const DnDCalendar = withDragAndDrop(Calendar);
 
 function UserPage() {
   
-  const [events, setEvents] = useState([
-    // {
-    //   id: 1,
-    //   title: 'Long Event',
-    //   start: new Date(2024, 7, 7),
-    //   end: new Date(2024, 7, 7),
-    //   allDay: true,
-    // },
-  ]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+      const [events, setEvents] = useState([
+        // {
+        //   id: 1,
+        //   title: 'Long Event',
+        //   start: new Date(2024, 7, 7),
+        //   end: new Date(2024, 7, 7),
+        //   allDay: true,
+        // },
+      ]);
+      const [modalIsOpen, setModalIsOpen] = useState(false);
+      const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const onEventResize = (data) => {
-    const { start, end } = data;
-    setEvents((prevEvents) => {
-      const updatedEvents = [...prevEvents];
-      updatedEvents[0].start = start;
-      updatedEvents[0].end = end;
-      return updatedEvents;
-    });
-  };
-  const onEventDrop = (data) => {
-    console.log(data);
-  };
+      const onEventResize = (data) => {
+        const { start, end } = data;
+        setEvents((prevEvents) => {
+          const updatedEvents = [...prevEvents];
+          updatedEvents[0].start = start;
+          updatedEvents[0].end = end;
+          return updatedEvents;
+        });
+      };
+      const onEventDrop = (data) => {
+        console.log(data);
+      };
 
-  useEffect(() => {
+useEffect(() => {
     axios.get('/api/bill').then((response) => {
       let calendarEvents = response.data.map((bill) => {
         return {
@@ -56,12 +56,12 @@ function UserPage() {
       setEvents(calendarEvents);
     }).catch(e => {
       console.log(e);
-      alert('something went wrong!');
+      alert('something went wrong getting bills!');
     })
-  }, [])
+}, [])
 
-  const deleteBill = (id) => {
-    axios.delete(`/api/bill/${id}`)
+const deleteBill = (id) => {
+  axios.delete(`/api/bill/${id}`)
     .then((response) => {
       console.log('deleting a bill worked:', response);
       axios.get('/api/bill').then((response) => {
@@ -81,26 +81,26 @@ function UserPage() {
         setEvents(calendarEvents);
       }).catch(e => {
         console.log(e);
-        alert('something went wrong!');
+        alert('something went wrong deleting a bill!');
       })
 
     })
     .catch(function (error) {
       console.log(error);
     })
-  }
+}
 
-  const [isEditing, setIsEditing] = useState(false);
-const [editData, setEditData] = useState({
-  amount: selectedEvent?.amount || '',
-  title: selectedEvent?.title || '',
-  cardNickname: selectedEvent?.cardNickname || '',
-  link: selectedEvent?.link || '',
-});
+      const [isEditing, setIsEditing] = useState(false);
+      const [editData, setEditData] = useState({
+        amount: selectedEvent?.amount || '',
+        title: selectedEvent?.title || '',
+        cardNickname: selectedEvent?.cardNickname || '',
+        link: selectedEvent?.link || '',
+      });
 
-const handleEditClick = () => {
-  setIsEditing(true);
-};
+      const handleEditClick = () => {
+        setIsEditing(true);
+      };
 
 const handleEditSubmit = (e) => {
   e.preventDefault();
@@ -116,7 +116,7 @@ const handleEditSubmit = (e) => {
     axios.get('/api/bill').then((response) => {
       const calendarEvents = response.data.map((bill) => ({
         id: bill.id,
-        title: `${bill.bill_amount} - ${bill.bill_name}`,
+        title: bill.bill_name,
         amount: bill.bill_amount,
         link: bill.bill_link,
         cardNickname: bill.card_nickname,
@@ -136,47 +136,134 @@ const handleEditSubmit = (e) => {
 };
 
 
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setEditData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
+      const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      };
+
+
+      const openModal = (event) => {
+        setSelectedEvent(event);
+        setModalIsOpen(true);
+      };
+
+      const closeModal = () => {
+        setModalIsOpen(false);
+        setSelectedEvent(null);
+      };
+
+      const customStyles = {
+        content: {
+          background: 'transparent',
+          padding: '20px',
+          border: 'none', 
+          width: 'fit-content',
+          // margin: 'auto',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 100000,
+        },
+        overlay: {
+          display: 'flex',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+          zIndex: 99999,
+        },
+      };
+
+      const [title, setTitle] = useState(''); 
+      const [amount, setAmount] = useState(''); 
+      const [link, setLink] = useState(''); 
+      const [cardNickname, setCardNickname] = useState(''); 
+      const [dueDate, setDueDate] = useState('');
+const handleAddBill = (event) => {
+        event.preventDefault();
+  const billData = {
+    bill_name: title,
+    bill_amount: amount,
+    bill_link: link,
+    card_nickname: cardNickname,
+    bill_due_date: dueDate,
+  };
+axios.post('/api/bill', billData )
+    .then((response) => {
+      console.log('POST - /api/bill success:', response);
+      console.log(response.data);
+      
+      axios.get('/api/bill').then((response) => {
+        let calendarEvents = response.data.map((bill) => {
+          return {
+            id: bill.id,
+            title: `$${bill.bill_amount} - ${bill.bill_name} `,
+            amount: bill.bill_amount,
+            link: bill.bill_link, 
+            cardNickname: bill.card_nickname, 
+            dueDate: new Date(bill.bill_due_date),
+            start: new Date(bill.bill_due_date),
+            end: new Date(bill.bill_due_date),
+            allDay: true,
+          };
+        });
+        setEvents(calendarEvents);
+      }).catch(e => {
+        console.log(e);
+        alert('something went wrong deleting a bill!');
+      })
+      // Clear out the input fields, lets see what it 'really' does?
+      setTitle('');
+      setAmount('');
+      setLink('');
+      setCardNickname('');
+      setDueDate('');
+    })
+    .catch((error) => {
+      console.error('Error adding a bill:', error);
+    });
 };
-
-
-  const openModal = (event) => {
-    setSelectedEvent(event);
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-    setSelectedEvent(null);
-  };
-
-  const customStyles = {
-    content: {
-      background: 'transparent',
-      padding: '20px',
-      border: 'none', 
-      width: 'fit-content',
-      // margin: 'auto',
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      zIndex: 100000,
-    },
-    overlay: {
-      display: 'flex',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-      zIndex: 99999,
-    },
-  };
+  
 
   return (
+    
     <div className="App">
+      <div>
+      <form onSubmit={handleAddBill}>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Bill Name"
+        />
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Amount"
+        />
+        <input
+          type="text"
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+          placeholder="Payment Link"
+        />
+        <input
+          type="text"
+          value={cardNickname}
+          onChange={(e) => setCardNickname(e.target.value)}
+          placeholder="Card Nickname"
+        />
+        <input
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          placeholder="Due Date"
+        />
+        <button type="submit">Add Bill</button>
+      </form>
+    </div>
       <DnDCalendar
         defaultDate={moment().toDate()}
         defaultView="month"
@@ -276,7 +363,6 @@ const handleInputChange = (e) => {
     )}
   </Modal>
 )}
-
     </div>
   );
 }

@@ -11,7 +11,7 @@ CREATE TABLE "bill_information" (
     "bill_name" VARCHAR (40) NOT NULL,
     "bill_amount" INT NOT NULL,
     "bill_link" VARCHAR (1000),
-    "card_nicname" VARCHAR (40),
+    "card_nickname" VARCHAR (40),
     "bill_due_date" DATE NOT NULL,
     "user_id" INT,
     FOREIGN KEY (user_id) REFERENCES "user"(id)

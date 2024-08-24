@@ -40,3 +40,7 @@
 .navLink:hover {
   background-color: #2b9dda;
 }
+
+.addBill {
+  color: white;
+}

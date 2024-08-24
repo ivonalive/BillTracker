@@ -26,6 +26,24 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
   // POST route code here
+  console.log('req.body', req.body)
+
+  const { bill_name, bill_amount, bill_link, card_nickname, bill_due_date } = req.body;
+
+    let sqlQuery = `INSERT INTO "bill_information" ("bill_name", "bill_amount", "bill_link", "card_nickname", "bill_due_date")
+    VALUES ($1, $2, $3, $4, $5);`
+
+    const queryValues = [bill_name, bill_amount, bill_link, card_nickname, bill_due_date];
+
+    pool.query(sqlQuery, queryValues)
+    .then(dbResult => {
+        console.log('dbResult.rows insterted', dbResult.rows);
+        res.sendStatus(200);
+    })
+    .catch(dbError => {
+        console.log('POST - dbError:', dbError);
+        res.sendStatus(500);
+    })
 });
 
 // PUT route
@@ -48,7 +66,7 @@ router.put('/:id', (req, res) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.error('Error executing query', error);
+      console.error('PUT - Error executing query', error);
       res.sendStatus(500);
     });
 });

@@ -49,9 +49,9 @@
 
   .billInfo {
     background-color: #2b9dda ; /* Solid background color */
-    padding: 20px; /* Add padding for better spacing */
-    border-radius: 8px; /* Smooth out the corners */
-    width: fit-content; /* Automatically fit the width to the content */
+    padding: 20px; 
+    border-radius: 8px; 
+    width: fit-content; 
     max-width: 90vw; /* Ensure it doesn’t overflow too much horizontally */
     color: white; /* Make sure the text is visible on the background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
@@ -60,13 +60,46 @@
   }
   
   .billInfo h2 {
-    margin-top: 0; /* Remove the default margin from the heading */
+    margin-top: 0; 
     font-size: 1.5em;
   }
   
   .billInfo p {
-    margin: 8px 0; /* Space out the paragraphs */
+    margin: 8px 0; 
     font-size: 1.1em;
+  }
+  
+  /* .footer {
+    position: relative;
+    height: 28px; 
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    
+  }
+
+  .addBillButton {
+    border-radius: 4px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    
+  } */
+  .rbc-button-addBill {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .rbc-date-cell {
+    position: relative;
+    padding: 10px;
   }
   
 
