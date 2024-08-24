@@ -194,25 +194,6 @@ axios.post('/api/bill', billData )
       console.log('POST - /api/bill success:', response);
       console.log(response.data);
       
-      axios.get('/api/bill').then((response) => {
-        let calendarEvents = response.data.map((bill) => {
-          return {
-            id: bill.id,
-            title: `$${bill.bill_amount} - ${bill.bill_name} `,
-            amount: bill.bill_amount,
-            link: bill.bill_link, 
-            cardNickname: bill.card_nickname, 
-            dueDate: new Date(bill.bill_due_date),
-            start: new Date(bill.bill_due_date),
-            end: new Date(bill.bill_due_date),
-            allDay: true,
-          };
-        });
-        setEvents(calendarEvents);
-      }).catch(e => {
-        console.log(e);
-        alert('something went wrong deleting a bill!');
-      })
       // Clear out the input fields, lets see what it 'really' does?
       setTitle('');
       setAmount('');
