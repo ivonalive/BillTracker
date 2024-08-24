@@ -94,7 +94,7 @@ router.delete('/:id', (req, res) => {
           res.sendStatus(200);
       })
       .catch(dbError => {
-          console.log(dbError);
+          console.log("DELETE - query result:",dbError);
           res.sendStatus(500);
       })
 });

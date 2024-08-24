@@ -37,48 +37,74 @@ function UserPage() {
       const onEventDrop = (data) => {
         console.log(data);
       };
-
-useEffect(() => {
-    axios.get('/api/bill').then((response) => {
-      let calendarEvents = response.data.map((bill) => {
-        return {
-          id: bill.id,
-          title: `$${bill.bill_amount} - ${bill.bill_name} `,
-          amount: bill.bill_amount,
-          link: bill.bill_link, 
-          cardNickname: bill.card_nickname, 
-          dueDate: new Date(bill.bill_due_date),
-          start: new Date(bill.bill_due_date),
-          end: new Date(bill.bill_due_date),
-          allDay: true,
+      
+      const fetchBills = () => {
+        axios.get('/api/bill')
+          .then((response) => {
+            let calendarEvents = response.data.map((bill) => {
+              return {
+                id: bill.id,
+                title: `$${bill.bill_amount} - ${bill.bill_name}`,
+                amount: bill.bill_amount,
+                link: bill.bill_link,
+                cardNickname: bill.card_nickname,
+                dueDate: new Date(bill.bill_due_date),
+                start: new Date(bill.bill_due_date),
+                end: new Date(bill.bill_due_date),
+                allDay: true,
+              };
+            });
+            setEvents(calendarEvents);
+          })
+          .catch((e) => {
+            console.log(e);
+            alert('Something went wrong getting bills!');
+          });
+      };
+      
+      useEffect(() => {
+        fetchBills();
+      }, []);
+      
+      // Move handleAddBill function outside the useEffect
+      const handleAddBill = (event) => {
+        event.preventDefault();
+        const billData = {
+          bill_name: title,
+          bill_amount: amount,
+          bill_link: link,
+          card_nickname: cardNickname,
+          bill_due_date: dueDate,
         };
-      });
-      setEvents(calendarEvents);
-    }).catch(e => {
-      console.log(e);
-      alert('something went wrong getting bills!');
-    })
-}, [])
+      
+        axios.post('/api/bill', billData)
+          .then((response) => {
+            console.log('POST /api/bill success:', response);
+      
+            // Clear the input fields
+            setTitle('');
+            setAmount('');
+            setLink('');
+            setCardNickname('');
+            setDueDate('');
+      
+            // Re-fetch bills after a new one is added
+            fetchBills();
+          })
+          .catch((error) => {
+            console.error('Error adding a bill:', error);
+          });
+      };
+      
 
 const deleteBill = (id) => {
   axios.delete(`/api/bill/${id}`)
     .then((response) => {
       console.log('deleting a bill worked:', response);
       axios.get('/api/bill').then((response) => {
-        let calendarEvents = response.data.map((bill) => {
-          return {
-            id: bill.id,
-            title: `$${bill.bill_amount} - ${bill.bill_name} `,
-            amount: bill.bill_amount,
-            link: bill.bill_link, 
-            cardNickname: bill.card_nickname, 
-            dueDate: new Date(bill.bill_due_date),
-            start: new Date(bill.bill_due_date),
-            end: new Date(bill.bill_due_date),
-            allDay: true,
-          };
-        });
-        setEvents(calendarEvents);
+        fetchBills();
+        setIsEditing(false);
+        closeModal();
       }).catch(e => {
         console.log(e);
         alert('something went wrong deleting a bill!');
@@ -113,22 +139,7 @@ const handleEditSubmit = (e) => {
     due_date: editData.dueDate,
   })
   .then((response) => {
-    axios.get('/api/bill').then((response) => {
-      const calendarEvents = response.data.map((bill) => ({
-        id: bill.id,
-        title: bill.bill_name,
-        amount: bill.bill_amount,
-        link: bill.bill_link,
-        cardNickname: bill.card_nickname,
-        dueDate: new Date(bill.bill_due_date),
-        start: new Date(bill.bill_due_date),
-        end: new Date(bill.bill_due_date),
-        allDay: true,
-      }));
-      setEvents(calendarEvents);
-      setIsEditing(false);
-      closeModal();
-    });
+    fetchBills();
   })
   .catch((error) => {
     console.error('Error updating bill:', error);
@@ -180,31 +191,32 @@ const handleEditSubmit = (e) => {
       const [link, setLink] = useState(''); 
       const [cardNickname, setCardNickname] = useState(''); 
       const [dueDate, setDueDate] = useState('');
-const handleAddBill = (event) => {
-        event.preventDefault();
-  const billData = {
-    bill_name: title,
-    bill_amount: amount,
-    bill_link: link,
-    card_nickname: cardNickname,
-    bill_due_date: dueDate,
-  };
-axios.post('/api/bill', billData )
-    .then((response) => {
-      console.log('POST - /api/bill success:', response);
-      console.log(response.data);
+
+// const handleAddBill = (event) => {
+//         event.preventDefault();
+//   const billData = {
+//     bill_name: title,
+//     bill_amount: amount,
+//     bill_link: link,
+//     card_nickname: cardNickname,
+//     bill_due_date: dueDate,
+//   };
+// axios.post('/api/bill', billData )
+//     .then((response) => {
+//       console.log('POST - /api/bill success:', response);
+//       console.log(response.data);
       
-      // Clear out the input fields, lets see what it 'really' does?
-      setTitle('');
-      setAmount('');
-      setLink('');
-      setCardNickname('');
-      setDueDate('');
-    })
-    .catch((error) => {
-      console.error('Error adding a bill:', error);
-    });
-};
+//       // Clear out the input fields, lets see what it 'really' does?
+//       setTitle('');
+//       setAmount('');
+//       setLink('');
+//       setCardNickname('');
+//       setDueDate('');
+//     })
+//     .catch((error) => {
+//       console.error('Error adding a bill:', error);
+//     });
+// };
   
 
   return (
