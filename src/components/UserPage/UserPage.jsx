@@ -140,6 +140,8 @@ const handleEditSubmit = (e) => {
   })
   .then((response) => {
     fetchBills();
+    setIsEditing(false);
+    closeModal();
   })
   .catch((error) => {
     console.error('Error updating bill:', error);
