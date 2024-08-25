@@ -1,21 +1,114 @@
-h2 {
-    text-align: center;
-}
-
-h3 {
-    text-align: center;
-    font-weight: lighter;
-    margin-bottom: 1rem;
-}
-p {
-    text-align: center;
-    text-align: center; /* Align the text left for better readability */
-    margin-bottom: 1rem;
-}
-
 .container {
     max-width: 800px; /* Adjust the width to your preference */
     margin: 0 auto;
     text-align: center;
 }
+
+/* Base styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 30px auto;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Header styles */
+h1 {
+    text-align: center;
+    color: #2a9d8f;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #0056b3;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Paragraph and text styles */
+p {
+    text-align: left;
+    color: #264653;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Section dividers */
+hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
+}
+
+/* Feature list */
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.features-list p {
+    padding-left: 10px;
+    border-left: 3px solid #2a9d8f;
+}
+
+/* Button styles */
+button {
+    background-color: #2a9d8f;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #21867a;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1, h2, h3 {
+        font-size: 24px;
+    }
+}
+
+/* Additional UI improvements */
+.text-align-center {
+    text-align: center;
+}
+
+.font-weight-light {
+    font-weight: 300;
+}
+
+.margin-bottom {
+    margin-bottom: 1rem;
+}
+
+.margin-top {
+    margin-top: 1rem;
+}
+
 

@@ -9,6 +9,7 @@ import './AboutPage.css'
 function AboutPage() {
   return (
     <div className="container">
+      
       <div>
         <h2> ~ Overview ~ </h2>
         BillTracker is an easy-to-use tool designed to help you track your 

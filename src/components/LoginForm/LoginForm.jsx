@@ -38,6 +38,7 @@ function LoginForm() {
           <input
             type="text"
             name="username"
+            className="input-field"
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}

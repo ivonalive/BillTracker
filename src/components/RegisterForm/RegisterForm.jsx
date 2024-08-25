@@ -35,6 +35,7 @@ function RegisterForm() {
         <label htmlFor="username">
           Username:
           <input
+            className="input-field"
             type="text"
             name="username"
             value={username}
@@ -47,6 +48,7 @@ function RegisterForm() {
         <label htmlFor="password">
           Password:
           <input
+            className="input-field"
             type="password"
             name="password"
             value={password}
@@ -59,6 +61,7 @@ function RegisterForm() {
         <label htmlFor="first_name">
           First Name:
           <input
+            className="input-field"   
             type="text"
             name="first_name"
             value={firstName}
@@ -71,6 +74,7 @@ function RegisterForm() {
         <label htmlFor="last_name">
           Last Name:
           <input
+            className="input-field"
             type="text"
             name="last_name"
             value={lastName}

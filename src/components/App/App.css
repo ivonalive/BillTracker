@@ -96,15 +96,36 @@ Form Treatment
 -------------------------------------------------------------------------------- */
 
 .formPanel {
-  box-sizing: border-box;
-  width: 400px;
-  max-width: 100%;
-  padding: 25px;
-  margin: 0 auto 20px;
-  background-color: rgb(215, 192, 59);
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
+  binput[type="text"],
+  input[type="password"],
+  input[type="number"],
+  input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 2px solid #2a9d8f;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+  }
+  
+  /* input:focus {
+      outline: none;
+      border-color: #21867a;
+      box-shadow: 0 0 5px rgba(33, 134, 122, 0.5);
+  } */
+  
 }
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 2px solid #2a9d8f;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
 
 input {
   margin: 5px;
