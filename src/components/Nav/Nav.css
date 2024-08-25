@@ -2,12 +2,15 @@
   /* flex box layout */
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
   align-items: center;
-  margin: 0 0 30px;
-  /* background-color: #2b9dda; */
+  padding: 20px;  /* margin: 0 0 30px; */
   overflow: hidden;
 }
-
+.nav button {
+  margin: 0 5px;
+  padding: 5px 10px;
+}
 .nav a {
   text-decoration: none;
 }
@@ -23,7 +26,7 @@
 .navLink {
   background-color: #2b9dda; /* Match the button color to your calendar's theme */
   color: white;
-  padding: 10px 15px;
+  padding: 12px 20px;
   font-size: 1rem;
   border: none;
   border-radius: 4px;

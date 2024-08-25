@@ -9,6 +9,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import Modal from "react-modal";
 import './UserPage.css';
 import CustomToolbar from "./CustomToolbar";
+import '../Nav/Nav.css';
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
@@ -43,18 +44,23 @@ function UserPage() {
       const fetchBills = () => {
         axios.get('/api/bill')
           .then((response) => {
-            let calendarEvents = response.data.map((bill) => {
-              return {
-                id: bill.id,
-                title: `$${bill.bill_amount} - ${bill.bill_name}`,
-                amount: bill.bill_amount,
-                link: bill.bill_link,
-                cardNickname: bill.card_nickname,
-                dueDate: new Date(bill.bill_due_date),
-                start: new Date(bill.bill_due_date),
-                end: new Date(bill.bill_due_date),
-                allDay: true,
-              };
+            let calendarEvents = [];
+            response.data.forEach((bill) => {
+              // Generate the bill event for this month and future months
+              for (let i = 0; i < 12; i++) { // Example: Generate events for the next 12 months
+                const dueDate = moment(bill.bill_due_date).add(i, 'months').toDate();
+                calendarEvents.push({
+                  id: bill.id,
+                  title: `$${bill.bill_amount} - ${bill.bill_name}`,
+                  amount: bill.bill_amount,
+                  link: bill.bill_link,
+                  cardNickname: bill.card_nickname,
+                  dueDate: dueDate,
+                  start: dueDate,
+                  end: dueDate,
+                  allDay: true,
+                });
+              }
             });
             setEvents(calendarEvents);
           })
@@ -77,6 +83,7 @@ function UserPage() {
           bill_link: link,
           card_nickname: cardNickname,
           bill_due_date: dueDate,
+          recurring: true,
         };
       
         axios.post('/api/bill', billData)
@@ -139,6 +146,7 @@ const handleEditSubmit = (e) => {
     link: editData.link,
     card: editData.cardNickname,
     due_date: editData.dueDate,
+    recurring: true,
   })
   .then((response) => {
     fetchBills();

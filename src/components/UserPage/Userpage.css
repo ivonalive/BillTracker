@@ -143,6 +143,7 @@ div.custom-toolbar {
   padding: 20px;
   background-color: white;
   color: green;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .custom-toolbar button {
