@@ -139,6 +139,21 @@ div.rbc-toolbar {
 
 div.custom-toolbar {
   margin-bottom: 20px;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  color: green;
+}
+
+.custom-toolbar button {
+  margin: 0 5px;
+  padding: 5px 10px;
+}
+
+.toolbar-label {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 20px;
 }
 
 button[type="submit"]:hover {
