@@ -25,7 +25,8 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/about">
-              About
+            {/*Features and Benefits is AboutPage */}
+              Features and Benefits
             </Link>
             <LogOutButton className="navLink" />
           </>

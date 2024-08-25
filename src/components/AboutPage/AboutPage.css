@@ -1,0 +1,21 @@
+h2 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+    font-weight: lighter;
+    margin-bottom: 1rem;
+}
+p {
+    text-align: center;
+    text-align: center; /* Align the text left for better readability */
+    margin-bottom: 1rem;
+}
+
+.container {
+    max-width: 800px; /* Adjust the width to your preference */
+    margin: 0 auto;
+    text-align: center;
+}
+
