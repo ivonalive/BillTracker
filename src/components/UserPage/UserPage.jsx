@@ -7,7 +7,8 @@ import "./Userpage.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Modal from "react-modal";
-import './UserPage.css'
+import './UserPage.css';
+import CustomToolbar from "./CustomToolbar";
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
@@ -212,6 +213,7 @@ const handleEditSubmit = (e) => {
     <div className="App">
       <div>
       <form onSubmit={handleAddBill} className="billInfo">
+      <center>
         <input
           type="text"
           value={title}
@@ -243,6 +245,7 @@ const handleEditSubmit = (e) => {
           placeholder="Due Date"
         />
         <button type="submit" className="addBillButton">Add Bill</button>
+        </center>
       </form>
     </div>
       <DnDCalendar
@@ -258,6 +261,10 @@ const handleEditSubmit = (e) => {
         onEventResize={onEventResize}
         resizable
         style={{ height: "100vh" }}
+        toolbar={true}
+        components={{
+          toolbar: CustomToolbar,
+        }}
         onSelectEvent={openModal}
       />
       {selectedEvent && (

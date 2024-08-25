@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import '../App/App.css';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -25,7 +26,7 @@ function LoginForm() {
   }; // end login
 
   return (
-    
+    <div className="login-form-container">
     <form className="formPanel" onSubmit={login}>
       <h2>Login</h2>
       {errors.loginMessage && (
@@ -62,7 +63,7 @@ function LoginForm() {
         <input className="btn" type="submit" name="submit" value="Log In" />
       </div>
     </form>
-    
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../LoginPage/LoginPage.css';
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
@@ -7,10 +7,9 @@ function RegisterPage() {
   const history = useHistory();
 
   return (
-    <div>
-      <RegisterForm />
-
+    <div  className="login-page">
       <center>
+      <RegisterForm />
         <button
           type="button"
           className="btn btn_asLink"

@@ -1,0 +1,32 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  padding: 20px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: url('./loginRegister.WEBP') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.nav, .login-page {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-color: #2b9dda;
+  border-width: 1px 1px 3px;
+  border-radius: 4px;
+  background-color: #03034e;
+  color: #f8f8f8;
+  font-size: 1.1rem;
+  outline: 0;
+  cursor: pointer;
+}

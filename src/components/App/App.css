@@ -76,6 +76,11 @@ Button
   color: #2b9dda;
 }
 
+input, .btn {
+  width: 100%;
+  margin: 5px 0;
+}
+
 /* --------------------------------------------------------------------------------
 Alert
 -------------------------------------------------------------------------------- */
@@ -107,6 +112,9 @@ Form Treatment
       border-radius: 5px;
       box-sizing: border-box;
       font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
   }
   
   /* input:focus {
@@ -130,4 +138,9 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+input, .btn {
+  width: 100%;
+  margin: 5px 0;
 }
