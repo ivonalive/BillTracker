@@ -159,9 +159,18 @@ const handleEditSubmit = (e) => {
 
 
       const openModal = (event) => {
+        console.log("Selected Event: ", event); // Debug to check what data is being passed
         setSelectedEvent(event);
+        setEditData({
+          title: event.title,
+          amount: event.amount,
+          link: event.link,
+          cardNickname: event.cardNickname,
+          dueDate: event.dueDate ? event.dueDate.toISOString().substr(0, 10) : '',
+        });
         setModalIsOpen(true);
       };
+      
 
       const closeModal = () => {
         setModalIsOpen(false);
