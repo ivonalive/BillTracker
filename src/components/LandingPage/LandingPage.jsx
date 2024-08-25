@@ -39,6 +39,10 @@ function LandingPage() {
           </center>
         </div>
       </div>
+      <div className="grid-col grid-col-4">
+        <img src="./public/example-bill-calendar.png" alt="Screenshot" className="bottom-left-img" />
+      </div>
+
     </div>
   );
 }

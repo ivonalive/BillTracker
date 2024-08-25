@@ -78,3 +78,17 @@ Grid
   flex-basis: 100%;
   max-width: 100%;
 }
+
+.grid-col.grid-col-4 {
+  position: relative; /* Ensure relative positioning of the container */
+}
+
+.bottom-left-img {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  max-width: 500px; /* Constrain the image width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Optional for rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional for a subtle shadow */
+}
