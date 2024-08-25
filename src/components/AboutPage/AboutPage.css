@@ -41,7 +41,7 @@ h2, h3 {
 
 /* Paragraph and text styles */
 p {
-    text-align: left;
+    text-align: center;
     color: #264653;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
