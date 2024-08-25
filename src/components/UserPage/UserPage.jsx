@@ -161,8 +161,10 @@ const handleEditSubmit = (e) => {
       const openModal = (event) => {
         console.log("Selected Event: ", event); // Debug to check what data is being passed
         setSelectedEvent(event);
+        const billName = event.title.split(' - ')[1] || event.title;
+
         setEditData({
-          title: event.title,
+          title: billName,
           amount: event.amount,
           link: event.link,
           cardNickname: event.cardNickname,
@@ -208,7 +210,7 @@ const handleEditSubmit = (e) => {
     
     <div className="App">
       <div>
-      <form onSubmit={handleAddBill}>
+      <form onSubmit={handleAddBill} className="billInfo">
         <input
           type="text"
           value={title}
@@ -239,7 +241,7 @@ const handleEditSubmit = (e) => {
           onChange={(e) => setDueDate(e.target.value)}
           placeholder="Due Date"
         />
-        <button type="submit">Add Bill</button>
+        <button type="submit" className="addBillButton">Add Bill</button>
       </form>
     </div>
       <DnDCalendar
@@ -316,11 +318,12 @@ const handleEditSubmit = (e) => {
             onChange={handleInputChange}
           />
         </div>
-
-        <button type="submit">Save Changes</button>
-        <button type="button" onClick={() => setIsEditing(false)}>
+        <div className="buttons-container">
+        <button type="submit" className="buttons">Save Changes</button>
+        <button type="button"  className="buttons" onClick={() => setIsEditing(false)}>
           Cancel
         </button>
+        </div>
       </form>
     ) : (
       <div className="billInfo">
@@ -333,9 +336,11 @@ const handleEditSubmit = (e) => {
             Bill Link: <a href={selectedEvent.link} target="_blank" rel="noopener noreferrer">Click Here</a>
           </p>
         )}
-        <button onClick={closeModal}>Close</button>
-        <button onClick={() => deleteBill(selectedEvent.id)}>Delete</button>
-        <button onClick={handleEditClick}>Edit</button>
+        <div className="buttons-container">
+        <button className="buttons" onClick={closeModal}>Close</button>
+        <button className="buttons" onClick={() => deleteBill(selectedEvent.id)}>Delete</button>
+        <button className="buttons" onClick={handleEditClick}>Edit</button>
+        </div>
       </div>
     )}
   </Modal>
