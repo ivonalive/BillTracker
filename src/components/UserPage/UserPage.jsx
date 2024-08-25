@@ -203,32 +203,6 @@ const handleEditSubmit = (e) => {
       const [cardNickname, setCardNickname] = useState(''); 
       const [dueDate, setDueDate] = useState('');
 
-// const handleAddBill = (event) => {
-//         event.preventDefault();
-//   const billData = {
-//     bill_name: title,
-//     bill_amount: amount,
-//     bill_link: link,
-//     card_nickname: cardNickname,
-//     bill_due_date: dueDate,
-//   };
-// axios.post('/api/bill', billData )
-//     .then((response) => {
-//       console.log('POST - /api/bill success:', response);
-//       console.log(response.data);
-      
-//       // Clear out the input fields, lets see what it 'really' does?
-//       setTitle('');
-//       setAmount('');
-//       setLink('');
-//       setCardNickname('');
-//       setDueDate('');
-//     })
-//     .catch((error) => {
-//       console.error('Error adding a bill:', error);
-//     });
-// };
-  
 
   return (
     
@@ -294,53 +268,53 @@ const handleEditSubmit = (e) => {
       <form className="billInfo" onSubmit={handleEditSubmit}>
         {/* Form fields */}
         <div>
-        <label>Bill Name: </label>
-        <input
-          type="text"
-          name="title"
-          value={editData.title}
-          onChange={handleInputChange}
-        />
+          <label>Bill Name: </label>
+          <input
+            type="text"
+            name="title"
+            value={editData.title}
+            onChange={handleInputChange}
+          />
         </div>
 
         <div>
-        <label>Amount: </label>
-        <input
-          type="number"
-          name="amount"
-          value={editData.amount}
-          onChange={handleInputChange}
-        />
+          <label>Amount: </label>
+          <input
+            type="number"
+            name="amount"
+            value={editData.amount}
+            onChange={handleInputChange}
+          />
         </div>
         
         <div>
-        <label>Payment Link: </label>
-        <input
-          type="text"
-          name="link"
-          value={editData.link}
-          onChange={handleInputChange}
-        />
+          <label>Payment Link: </label>
+          <input
+            type="text"
+            name="link"
+            value={editData.link}
+            onChange={handleInputChange}
+          />
         </div>
 
         <div>
-        <label>Card Nickname: </label>
-        <input
-          type="text"
-          name="cardNickname"
-          value={editData.cardNickname}
-          onChange={handleInputChange}
-        />
+          <label>Card Nickname: </label>
+          <input
+            type="text"
+            name="cardNickname"
+            value={editData.cardNickname}
+            onChange={handleInputChange}
+          />
         </div>
 
         <div>
-        <label>Due Date: </label>
-        <input
-          type="date"
-          name="dueDate"
-          value={editData.dueDate}
-          onChange={handleInputChange}
-        />
+          <label>Due Date: </label>
+          <input
+            type="date"
+            name="dueDate"
+            value={editData.dueDate}
+            onChange={handleInputChange}
+          />
         </div>
 
         <button type="submit">Save Changes</button>
@@ -350,9 +324,8 @@ const handleEditSubmit = (e) => {
       </form>
     ) : (
       <div className="billInfo">
-        <h2>{selectedEvent.title}</h2>
         <p>Amount: ${selectedEvent.amount}</p>
-        <p>Bill Name: {selectedEvent.title}</p>
+        <p>Bill Name: {selectedEvent.title.split(' - ')[1]}</p>
         <p>Due Date: {selectedEvent.dueDate.toDateString()}</p>
         <p>Card Nickname: {selectedEvent.cardNickname || 'N/A'}</p>
         {selectedEvent.link && (
@@ -367,6 +340,7 @@ const handleEditSubmit = (e) => {
     )}
   </Modal>
 )}
+
     </div>
   );
 }
