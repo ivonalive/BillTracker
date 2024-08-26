@@ -141,6 +141,12 @@ div.rbc-toolbar {
   background-color: #29a9d2da;
 }
 
+.rbc-button-link {
+  pointer-events: none;
+  text-decoration: none;
+  color: inherit;
+}
+
 div.custom-toolbar {
   margin-bottom: 20px;
   align-items: center;
