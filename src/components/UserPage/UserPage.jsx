@@ -361,8 +361,9 @@ const handleEditSubmit = (e) => {
     )}
   </Modal>
 )}
-
+<footer>billtracker.feedback@gmail.com</footer>
     </div>
+   
   );
 }
 
