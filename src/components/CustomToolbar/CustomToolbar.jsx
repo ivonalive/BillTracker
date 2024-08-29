@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import './UserPage.css';
+import '../UserPage/UserPage.css';
 
 const CustomToolbar = (toolbar) => {
   const goToBack = () => {
