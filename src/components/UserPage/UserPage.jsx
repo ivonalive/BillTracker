@@ -3,7 +3,6 @@ import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import axios from "axios";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import "./Userpage.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Modal from "react-modal";
