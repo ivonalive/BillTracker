@@ -6,7 +6,7 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Modal from "react-modal";
-// import './UserPage.css';
+import './UserPage.css';
 import CustomToolbar from "./CustomToolbar";
 import '../Nav/Nav.css';
 
