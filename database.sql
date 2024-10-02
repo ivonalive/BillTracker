@@ -16,3 +16,8 @@ CREATE TABLE "bill_information" (
     "user_id" INT,
     FOREIGN KEY (user_id) REFERENCES "user"(id)
 );
+
+INSERT INTO "user" (username, password, first_name, last_name)
+    VALUES ($1, $2, $3, $4) RETURNING id;
+
+SELECT * FROM bill_information WHERE user_id = 5
