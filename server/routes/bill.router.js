@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
   console.log("GET /api/bill has been invoked");
   const sqlText = `
     SELECT * FROM "bill_information"
-      ORDER BY "bill_due_date"
-      WHERE "user_id" = $1;
+    WHERE "user_id" = $1
+    ORDER BY "bill_due_date";
   `;
   pool.query(sqlText, [req.user.id])
     .then((dbRes) => {
