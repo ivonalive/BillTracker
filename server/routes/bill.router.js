@@ -31,10 +31,10 @@ router.post('/', (req, res) => {
 
   const { bill_name, bill_amount, bill_link, card_nickname, bill_due_date } = req.body;
 
-    let sqlQuery = `INSERT INTO "bill_information" ("bill_name", "bill_amount", "bill_link", "card_nickname", "bill_due_date")
-    VALUES ($1, $2, $3, $4, $5);`
+    let sqlQuery = `INSERT INTO "bill_information" ("bill_name", "bill_amount", "bill_link", "card_nickname", "bill_due_date", "user_id")
+    VALUES ($1, $2, $3, $4, $5, $6);`
 
-    const queryValues = [bill_name, bill_amount, bill_link, card_nickname, bill_due_date];
+    const queryValues = [bill_name, bill_amount, bill_link, card_nickname, bill_due_date, req.user.id];
 
     pool.query(sqlQuery, queryValues)
     .then(dbResult => {
