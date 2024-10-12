@@ -1,5 +1,6 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+import { useSelector } from "react-redux";
 import moment from "moment";
 import axios from "axios";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
@@ -14,7 +15,7 @@ const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
 
 function UserPage() {
-  
+  const user = useSelector((store) => store.user);
       const [events, setEvents] = useState([
         // {
         //   id: 1,
@@ -40,38 +41,63 @@ function UserPage() {
         console.log(data);
       };
       
-      const fetchBills = () => {
-        axios.get('/api/bill')
-          .then((response) => {
-            let calendarEvents = [];
-            response.data.forEach((bill) => {
-              // Generate the bill event for this month and future months
-              for (let i = 0; i < 12; i++) { // Example: Generate events for the next 12 months
-                const dueDate = moment(bill.bill_due_date).add(i, 'months').toDate();
-                calendarEvents.push({
-                  id: bill.id,
-                  title: `$${bill.bill_amount} - ${bill.bill_name}`,
-                  amount: bill.bill_amount,
-                  link: bill.bill_link,
-                  cardNickname: bill.card_nickname,
-                  dueDate: dueDate,
-                  start: dueDate,
-                  end: dueDate,
-                  allDay: true,
-                });
+      const fetchBills = useCallback(() => {
+        if (user && user.id) {
+          const source = axios.CancelToken.source();
+          
+          axios.get('/api/bill', { cancelToken: source.token })
+            .then((response) => {
+              let calendarEvents = [];
+              response.data.forEach((bill) => {
+                // Generate the bill event for this month and future months
+                for (let i = 0; i < 12; i++) { 
+                  const dueDate = moment(bill.bill_due_date).add(i, 'months').toDate();
+                  calendarEvents.push({
+                    id: bill.id,
+                    title: `$${bill.bill_amount} - ${bill.bill_name}`,
+                    amount: bill.bill_amount,
+                    link: bill.bill_link,
+                    cardNickname: bill.card_nickname,
+                    dueDate: dueDate,
+                    start: dueDate,
+                    end: dueDate,
+                    allDay: true,
+                  });
+                }
+              });
+              setEvents(calendarEvents);
+            })
+            .catch((error) => {
+              if (axios.isCancel(error)) {
+                console.log('Request canceled:', error.message);
+              } else {
+                console.error('Error fetching bills:', error);
+                if (error.response && error.response.status === 401) {
+                  // Handle unauthorized error (user not logged in)
+                  console.log('User not authenticated');
+                } else {
+                  alert('Something went wrong getting bills!');
+                }
               }
             });
-            setEvents(calendarEvents);
-          })
-          .catch((e) => {
-            console.log(e);
-            alert('Something went wrong getting bills!');
-          });
-      };
+    
+          // Return a cleanup function
+          return () => {
+            source.cancel('Operation canceled by the user.');
+          };
+        }
+      }, [user]);
       
       useEffect(() => {
-        fetchBills();
-      }, []);
+        const cleanup = fetchBills();
+        return () => {
+          if (cleanup) cleanup();
+        };
+      }, [fetchBills]);
+    
+      if (!user.id) {
+        return null; // or a loading indicator
+      }
       
       // Move handleAddBill function outside the useEffect
       const handleAddBill = (event) => {
