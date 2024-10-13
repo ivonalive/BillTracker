@@ -3,11 +3,13 @@ import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
 // import '../App/App.css';
 import './LoginPage.css';
+import Footer from '../Footer/Footer';
 
 function LoginPage() {
   const history = useHistory();
 
   return (
+    <div className="login-page-container">
     <div className="login-page">
        <center>
       <LoginForm />
@@ -21,6 +23,8 @@ function LoginPage() {
           Register
         </button>
       </center>
+      </div>
+      <Footer />
     </div>
   );
 }
