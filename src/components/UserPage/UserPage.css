@@ -177,7 +177,7 @@
     border-bottom-color: #0056b3; /* Change the bottom border color when focused */
   }
   
-  footer {
+  .email {
     /* position: sticky; */
     left: 0;
     bottom: 0;

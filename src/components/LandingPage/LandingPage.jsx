@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
+import Footer from '../Footer/Footer';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
@@ -14,8 +15,8 @@ function LandingPage() {
   };
 
   return (
-    <div className="container">
-
+  <div className="landing-page-container"> 
+   <div className="container">
       <div className="grid">
         <div className="grid-col grid-col_8">
       <h2>{heading}</h2>
@@ -43,8 +44,10 @@ function LandingPage() {
       <div className="grid-col grid-col-4">
       <img src="/example-bill-calendar.png" alt="Screenshot" className="bottom-left-img" />
       </div>
-
     </div>
+      <Footer />
+  </div>
+    
   );
 }
 
