@@ -8,6 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { fetchBills } from '../../redux/actions/billActions'; // Adjust the path as needed
+import './CustomToolbar';
 
 const CustomToolbar = (toolbar) => {
   const dispatch = useDispatch();
@@ -82,23 +83,10 @@ const CustomToolbar = (toolbar) => {
   return (
     <div className="custom-toolbar">
       <div className="toolbar-content">
-        <center>
-          <button onClick={goToBack}>Back</button>
-          
-          {isCurrentMonth && !isToday && (
-            <button className="toolbar-label" onClick={goToToday}>
-              Today
-            </button>
-          )}
-
-          <span>{label()}</span>
-          
-          <button onClick={goToNext}>Next</button>
-        </center>
-      </div>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={['DatePicker', 'DatePicker']}>
-          <DatePicker 
+      <center>
+      <LocalizationProvider dateAdapter={AdapterDayjs} >
+        <DemoContainer components={['DatePicker', 'DatePicker']} sx={{justifyContent: 'center',  mb: 3}}>
+          <DatePicker         
             label="Start Date"
             value={dateRange[0]}
             onChange={(newValue) => handleDateRangeChange(0, newValue)}
@@ -115,6 +103,21 @@ const CustomToolbar = (toolbar) => {
           Total amount in selected period: ${totalAmount.toFixed(2)}
         </div>
       )}
+      </center>
+        <center>
+          <button onClick={goToBack}>Back</button>
+          
+          {isCurrentMonth && !isToday && (
+            <button className="toolbar-label" onClick={goToToday}>
+              Today
+            </button>
+          )}
+
+          <span>{label()}</span>
+          
+          <button onClick={goToNext}>Next</button>
+        </center>
+      </div>     
     </div>
   );
 };
