@@ -115,6 +115,7 @@ Form Treatment
       display: flex;
       flex-direction: column;
       gap: 10px;
+      justify-content: center;
   }
   
   /* input:focus {

@@ -19,65 +19,18 @@ Grid
   box-sizing: border-box;
 }
 
-.grid-col_1 {
-  flex-basis: 8.33333333%;
-  max-width: 8.33333333%;
-}
-
-.grid-col_2 {
-  flex-basis: 16.66666667%;
-  max-width: 16.66666667%;
-}
-
-.grid-col_3 {
-  flex-basis: 25%;
-  max-width: 25%;
-}
-
-.grid-col_4 {
-  flex-basis: 33.33333333%;
-  max-width: 33.33333333%;
-}
-
-.grid-col_5 {
-  flex-basis: 41.66666667%;
-  max-width: 41.66666667%;
-}
-
-.grid-col_6 {
-  flex-basis: 50%;
-  max-width: 50%;
-}
-
-.grid-col_7 {
-  flex-basis: 58.33333333%;
-  max-width: 58.33333333%;
-}
-
-.grid-col_8 {
-  flex-basis: 66.66666667%;
-  max-width: 66.66666667%;
-}
-
-.grid-col_9 {
-  flex-basis: 75%;
-  max-width: 75%;
-}
-
-.grid-col_10 {
-  flex-basis: 83.33333333%;
-  max-width: 83.33333333%;
-}
-
-.grid-col_11 {
-  flex-basis: 91.66666667%;
-  max-width: 91.66666667%;
-}
-
-.grid-col_12 {
-  flex-basis: 100%;
-  max-width: 100%;
-}
+.grid-col_1 { flex-basis: 8.33333333%; max-width: 8.33333333%; }
+.grid-col_2 { flex-basis: 16.66666667%; max-width: 16.66666667%; }
+.grid-col_3 { flex-basis: 25%; max-width: 25%; }
+.grid-col_4 { flex-basis: 33.33333333%; max-width: 33.33333333%; }
+.grid-col_5 { flex-basis: 41.66666667%; max-width: 41.66666667%; }
+.grid-col_6 { flex-basis: 50%; max-width: 50%; }
+.grid-col_7 { flex-basis: 58.33333333%; max-width: 58.33333333%; }
+.grid-col_8 { flex-basis: 66.66666667%; max-width: 66.66666667%; }
+.grid-col_9 { flex-basis: 75%; max-width: 75%; }
+.grid-col_10 { flex-basis: 83.33333333%; max-width: 83.33333333%; }
+.grid-col_11 { flex-basis: 91.66666667%; max-width: 91.66666667%; }
+.grid-col_12 { flex-basis: 100%; max-width: 100%; }
 
 .grid-col.grid-col-4 {
   position: relative; /* Ensure relative positioning of the container */
@@ -91,4 +44,225 @@ Grid
   height: auto; /* Maintain aspect ratio */
   border-radius: 5px; /* Optional for rounded corners */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional for a subtle shadow */
+}
+
+/* Desktop view */
+@media screen and (min-width: 769px) {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .welcome-text {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .grid-col.grid-col-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+  }
+
+  .bottom-left-img {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    max-width: 100%;
+    height: auto;
+    z-index: 1; /* Ensure it's above other content */
+  }
+
+  .landing-page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .formPanel {
+    width: 100%;
+  }
+
+  .formPanel input[type="text"],
+  .formPanel input[type="password"],
+  .formPanel input[type="email"],
+  .formPanel input[type="number"],
+  .formPanel button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-bottom: 2px solid #0056b3;
+    background-color: transparent;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  .formPanel input[type="password"] {
+    border: none;
+    border-bottom: 2px solid #0056b3;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .formPanel input:focus {
+    outline: none;
+    border-bottom-color: #0056b3; /* Darker shade for focus */
+  }
+
+  .formPanel label {
+    display: block;
+    margin-top: 10px;
+  }
+}
+
+/* Tablet Devices */
+@media screen and (max-width: 1024px) {
+  .grid-col_1, .grid-col_2, .grid-col_3, .grid-col_4, 
+  .grid-col_5, .grid-col_6, .grid-col_7, .grid-col_8, 
+  .grid-col_9, .grid-col_10, .grid-col_11, .grid-col_12 {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Mobile Devices */
+@media screen and (max-width: 768px) {
+  body, html {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .grid-col_1, .grid-col_2, .grid-col_3, .grid-col_4, 
+  .grid-col_5, .grid-col_6, .grid-col_7, .grid-col_8, 
+  .grid-col_9, .grid-col_10, .grid-col_11, .grid-col_12 {
+    flex-basis: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .grid-col_4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 0.25rem;
+  }
+
+  .bottom-left-img {
+    position: static;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+  .grid-col_4 > * {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .formPanel input[type="text"],
+  .formPanel input[type="password"],
+  .formPanel input[type="email"],
+  .formPanel input[type="number"],
+  .formPanel button {
+    width: 100%;
+    max-width: 300px; /* Adjust this value as needed */
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-bottom: 2px solid #0056b3;
+    background-color: transparent;
+    font-size: 16px;
+    box-sizing: border-box;
+    display: block; /* Ensure block display */
+  }
+
+  /* Specifically target the password input to ensure it matches others */
+  .formPanel input[type="password"] {
+    width: 100%;
+    max-width: 300px; /* Match this with other inputs */
+    border: none;
+    border-bottom: 2px solid #0056b3;
+    border-radius: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+  }
+
+  /* Ensure labels are also the same width */
+  .formPanel label {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 5px auto 0;
+    text-align: left;
+  }
+  /* ... (Your other existing mobile styles remain unchanged) ... */
+
+  .container, .landing-page-container {
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  h1 {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  p {
+    font-size: 11px;
+    margin: 5px 0;
+    line-height: 1.3;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 6px;
+    margin: 3px auto;
+    font-size: 12px;
+    box-sizing: border-box;
+    display: block;
+  }
+
+  .grid-col {
+    padding: 0 0.25rem 0.25rem;
+  }
+
+  .nav {
+    padding: 3px 0;
+  }
+
+  .nav-link {
+    padding: 2px;
+    font-size: 11px;
+  }
+
+  #welcome-text {
+    text-align: center;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 0 10px;
+  }
 }
